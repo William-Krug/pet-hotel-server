@@ -2,6 +2,8 @@
 -----   Pet Hotel   -----
 -------------------------
 
+-- database name: pet_hotel
+
 -- Drop Tables
 --- Delete "owners" table
 DROP TABLE IF EXISTS "owners" CASCADE;
