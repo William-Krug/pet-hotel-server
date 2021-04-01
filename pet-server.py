@@ -3,8 +3,8 @@ import psycopg2
 from flask import request, jsonify, make_response
 from psycopg2.extras import RealDictCursor
 
-#export FLASK_APP=pageName.py
-#python3 pageName.py
+#export FLASK_APP=pet-server.py
+#python3 pet-server.py
 
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -21,15 +21,16 @@ def api_owners():
     name = request_data['name']
     print("name", name)
 
-    connection = psycopg2.connect(
-      host="127.0.0.1",
-      port="5432",
-      database="pet_hotel"
-    )
+
     try:
+      connection = psycopg2.connect(
+        host="127.0.0.1",
+        port="5432",
+        database="pet_hotel"
+      )
       cursor = connection.cursor(cursor_factory=RealDictCursor)
       sqlQuery = 'INSERT INTO "owners" ("name") VALUES (%s)'
-      cursor.execute(sqlQuery % (name,))
+      cursor.execute(sqlQuery, (name,))
       connection.commit()
       count = cursor.rowcount
       print(count, "Owner INSERTED")
@@ -40,11 +41,11 @@ def api_owners():
         print("Failed to insert owner", error)
         result = {'status': 'ERROR'}
         return make_response(jsonify(result), 500)
-    finally:
-      if(connection):
-        cursor.close()
-        connection.close()
-        print("PostgreSQL connection is closed")
+    # finally:
+    #   if(connection):
+    #     cursor.close()
+    #     connection.close()
+    #     print("PostgreSQL connection is closed")
   else:
     connection = psycopg2.connect(
       host="127.0.0.1",
