@@ -41,13 +41,8 @@ def api_owners():
         print("Failed to insert owner", error)
         result = {'status': 'ERROR'}
         return make_response(jsonify(result), 500)
-    # finally:
-    #   if(connection):
-    #     cursor.close()
-    #     connection.close()
-    #     print("PostgreSQL connection is closed")
   else:
-    connection = psycopg2.connect(
+      connection = psycopg2.connect(
       host="127.0.0.1",
       port="5432",
       database="pet_hotel"
@@ -57,6 +52,7 @@ def api_owners():
     cursor.execute(sqlQuery)
     data = cursor.fetchall()
     return jsonify(data)
+  
 
 @app.route('/pets', methods=['GET', 'POST'])
 def api_pets():
@@ -98,6 +94,7 @@ def api_pets():
     #     cursor.close()
     #     connection.close()
     #     print("PostgreSQL connection is closed")
+
     ## END OF POST ENDPOINT
 
   else:
@@ -114,5 +111,6 @@ def api_pets():
     data = cursor.fetchall()
     return jsonify(data)
     ## END OF GET ENDPOINT
+ 
 
 app.run()
