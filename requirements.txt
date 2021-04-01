@@ -1,3 +1,4 @@
+# Install all necessary info with command: pip3 install -r ./requirements.txt
 astroid==2.5.2
 click==7.1.2
 Flask==1.1.2
