@@ -3,6 +3,9 @@ import psycopg2
 from flask import request, jsonify, make_response
 from psycopg2.extras import RealDictCursor
 
+#export FLASK_APP=pageName.py
+#python3 pageName.py
+
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -12,8 +15,16 @@ def homePage():
 
 @app.route('/owners', methods=['GET', 'POST'])
 def api_owners():
+  print("in /owners route")
   if request.method == 'POST':
-    name = request.json['body']['name']
+    print("request.args", request.args)
+    request_data = request.get_json()
+    name = request_data['name']
+    print("request_data", request_data)
+   
+
+    # name = request.json['body']['name']
+
     try:
       connection = psycopg2.connect(
       host="127.0.0.1",
