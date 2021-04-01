@@ -17,23 +17,19 @@ def homePage():
 def api_owners():
   print("in /owners route")
   if request.method == 'POST':
-    print("request.args", request.args)
     request_data = request.get_json()
     name = request_data['name']
-    print("request_data", request_data)
-   
+    print("name", name)
 
-    # name = request.json['body']['name']
-
-    try:
-      connection = psycopg2.connect(
+    connection = psycopg2.connect(
       host="127.0.0.1",
       port="5432",
       database="pet_hotel"
-      )
+    )
+    try:
       cursor = connection.cursor(cursor_factory=RealDictCursor)
       sqlQuery = 'INSERT INTO "owners" ("name") VALUES (%s)'
-      cursor.execute(sqlQuery, (name,))
+      cursor.execute(sqlQuery % (name,))
       connection.commit()
       count = cursor.rowcount
       print(count, "Owner INSERTED")
