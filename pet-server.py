@@ -99,6 +99,7 @@ def api_pets():
     #     connection.close()
     #     print("PostgreSQL connection is closed")
   else:
+    print('getting all pets')
     connection = psycopg2.connect(
       host="127.0.0.1",
       port="5432",
