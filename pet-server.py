@@ -98,7 +98,10 @@ def api_pets():
     #     cursor.close()
     #     connection.close()
     #     print("PostgreSQL connection is closed")
+    ## END OF POST ENDPOINT
+
   else:
+    # GET endpoint
     print('getting all pets')
     connection = psycopg2.connect(
       host="127.0.0.1",
@@ -106,9 +109,10 @@ def api_pets():
       database="pet_hotel"
     )
     cursor = connection.cursor()
-    sqlQuery = 'SELECT * FROM "owners"'
+    sqlQuery = 'SELECT * FROM "pets"'
     cursor.execute(sqlQuery)
     data = cursor.fetchall()
     return jsonify(data)
+    ## END OF GET ENDPOINT
 
 app.run()
