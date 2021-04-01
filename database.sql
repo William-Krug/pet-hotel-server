@@ -26,7 +26,7 @@ CREATE TABLE "pets" (
 	"breed" VARCHAR(64),
 	"color" VARCHAR(64),
 	"checked_in" BOOLEAN DEFAULT TRUE,
-	"checked_in_date" DATE
+	"checked_in_date" DATE CURRENT_TIMESTAMP
 );
 
 -- Populate Tables with Test Data
