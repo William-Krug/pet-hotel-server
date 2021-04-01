@@ -41,21 +41,21 @@ def api_owners():
         print("Failed to insert owner", error)
         result = {'status': 'ERROR'}
         return make_response(jsonify(result), 500)
+  else:
+      connection = psycopg2.connect(
+      host="127.0.0.1",
+      port="5432",
+      database="pet_hotel"
+    )
+      cursor = connection.cursor()
+      sqlQuery = 'SELECT * FROM "owners"'
+      cursor.execute(sqlQuery)
+      data = cursor.fetchall()
+      return jsonify(data)
     # finally:
     #   if(connection):
     #     cursor.close()
     #     connection.close()
     #     print("PostgreSQL connection is closed")
-  else:
-    connection = psycopg2.connect(
-      host="127.0.0.1",
-      port="5432",
-      database="pet_hotel"
-    )
-    cursor = connection.cursor()
-    sqlQuery = 'SELECT * FROM "owners"'
-    cursor.execute(sqlQuery)
-    data = cursor.fetchall()
-    return jsonify(data)
-
+ 
 app.run()
