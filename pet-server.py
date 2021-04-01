@@ -80,16 +80,16 @@ def api_pets():
         database="pet_hotel"
       )
       cursor = connection.cursor(cursor_factory=RealDictCursor)
-      sqlQuery = 'INSERT INTO "owners" ("name") VALUES (%s)'
-      cursor.execute(sqlQuery, (name,))
+      sqlQuery = 'INSERT INTO "pets" ("owners_id", "name", "breed", "color") VALUES (%s, %s, %s, %s)'
+      cursor.execute(sqlQuery, (owners_id, name, breed, color,))
       connection.commit()
       count = cursor.rowcount
-      print(count, "Owner INSERTED")
+      print(count, "Pet INSERTED")
       result = {'status': 'CREATED'}
       return make_response(jsonify(result), 201)
     except(Exception, psycopg2.Error) as error:
       if(connection):
-        print("Failed to insert owner", error)
+        print("Failed to insert pet", error)
         result = {'status': 'ERROR'}
         return make_response(jsonify(result), 500)
 
